@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra Cứu Thông Tin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        .result-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tra Cứu Thông Tin</h1>
+        <form id="search-form">
+            <label for="search-input">Nhập từ khóa:</label>
+            <input type="text" id="search-input" name="search-input" placeholder="Nhập thông tin cần tìm...">
+            <button type="submit">Tìm kiếm</button>
+        </form>
+
+        <h2>Kết quả:</h2>
+        <div id="results"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Chuyển dữ liệu JSON vào đây (có thể tải từ file hoặc lưu trực tiếp)
+        var data = [
+            {
+                "id": "1",
+                "name": "Phác đồ 1",
+                "description": "Thông tin về phác đồ 1"
+            },
+            {
+                "id": "2",
+                "name": "Phác đồ 2",
+                "description": "Thông tin về phác đồ 2"
+            },
+            {
+                "id": "3",
+                "name": "Phác đồ 3",
+                "description": "Thông tin về phác đồ 3"
+            }
+            // Thêm các dữ liệu khác vào đây
+        ];
+
+        // Xử lý khi người dùng nhấn tìm kiếm
+        $('#search-form').submit(function(e) {
+            e.preventDefault();
+
+            var query = $('#search-input').val().toLowerCase();
+            var resultsDiv = $('#results');
+            resultsDiv.empty(); // Xóa kết quả cũ
+
+            // Lọc dữ liệu theo từ khóa
+            var results = data.filter(function(item) {
+                return item.name.toLowerCase().includes(query) || item.description.toLowerCase().includes(query);
+            });
+
+            // Hiển thị kết quả
+            if (results.length > 0) {
+                results.forEach(function(item) {
+                    resultsDiv.append(
+                        `<div class="result-item">
+                            <h3>${item.name}</h3>
+                            <p>${item.description}</p>
+                        </div>`
+                    );
+                });
+            } else {
+                resultsDiv.append('<p>Không tìm thấy kết quả phù hợp.</p>');
+            }
+        });
+    </script>
+
+</body>
+</html>
